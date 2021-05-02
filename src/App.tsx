@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { Path } from './models/path';
+import { getNextStep, getPrevStep } from './utilities/step-helpers';
 
 function App() {
   const [pathOne, setPathOne] = useState<Path>({
@@ -19,7 +20,6 @@ function App() {
   const [points, setPoints] = useState<number>(6);
 
   function getStepOnOffClass(path: Path, propertyName: string): string {
-    console.log(propertyName, path[propertyName]);
     if (!!path[propertyName]) {
       return 'on';
     }
@@ -27,38 +27,70 @@ function App() {
   }
 
   function togglePathOne(propertyName: string): void {
-    const currentValue = pathOne[propertyName];
-    if (points > 0 && !currentValue) {
-      setPathOne({
-        ...pathOne,
-        [propertyName]: !currentValue,
-      });
+    const togglingOff = pathOne[propertyName];
+    const togglingOn = !togglingOff;
 
-      decrementPoints();
-    } else if (points < 6 && currentValue) {
-      setPathOne({
-        ...pathOne,
-        [propertyName]: !currentValue,
-      });
-      incrementPoints();
+    if ((points === 0 && togglingOn) || (points === 6 && togglingOff)) {
+      return;
+    }
+
+    if (points >= 0 && togglingOff) {
+      const nextStepName = getNextStep(propertyName);
+      const nextStepIsOn = nextStepName !== '' ? pathOne[nextStepName] : false;
+
+      if (!nextStepIsOn) {
+        setPathOne({
+          ...pathOne,
+          [propertyName]: false,
+        });
+
+        incrementPoints();
+      }
+    } else if (points <= 6 && togglingOn) {
+      const prevStepName = getPrevStep(propertyName);
+      const prevStepIsOn = prevStepName !== '' ? pathOne[prevStepName] : true;
+
+      if (prevStepIsOn) {
+        setPathOne({
+          ...pathOne,
+          [propertyName]: true,
+        });
+        decrementPoints();
+      }
     }
   }
 
   function togglePathTwo(propertyName: string): void {
-    const currentValue = pathTwo[propertyName];
-    if (points > 0 && !currentValue) {
-      setPathTwo({
-        ...pathTwo,
-        [propertyName]: !currentValue,
-      });
+    const togglingOff = pathTwo[propertyName];
+    const togglingOn = !togglingOff;
 
-      decrementPoints();
-    } else if (points < 6 && currentValue) {
-      setPathTwo({
-        ...pathTwo,
-        [propertyName]: !currentValue,
-      });
-      incrementPoints();
+    if ((points === 0 && togglingOn) || (points === 6 && togglingOff)) {
+      return;
+    }
+
+    if (points >= 0 && togglingOff) {
+      const nextStepName = getNextStep(propertyName);
+      const nextStepIsOn = nextStepName !== '' ? pathTwo[nextStepName] : false;
+
+      if (!nextStepIsOn) {
+        setPathTwo({
+          ...pathTwo,
+          [propertyName]: false,
+        });
+
+        incrementPoints();
+      }
+    } else if (points <= 6 && togglingOn) {
+      const prevStepName = getPrevStep(propertyName);
+      const prevStepIsOn = prevStepName !== '' ? pathTwo[prevStepName] : true;
+
+      if (prevStepIsOn) {
+        setPathTwo({
+          ...pathTwo,
+          [propertyName]: true,
+        });
+        decrementPoints();
+      }
     }
   }
 
