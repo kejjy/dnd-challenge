@@ -16,6 +16,8 @@ function App() {
     stepFour: false,
   });
 
+  const [points, setPoints] = useState<number>(6);
+
   function getStepOnOffClass(path: Path, propertyName: string): string {
     console.log(propertyName, path[propertyName]);
     if (!!path[propertyName]) {
@@ -26,18 +28,46 @@ function App() {
 
   function togglePathOne(propertyName: string): void {
     const currentValue = pathOne[propertyName];
-    setPathOne({
-      ...pathOne,
-      [propertyName]: !currentValue,
-    });
+    if (points > 0 && !currentValue) {
+      setPathOne({
+        ...pathOne,
+        [propertyName]: !currentValue,
+      });
+
+      decrementPoints();
+    } else if (points < 6 && currentValue) {
+      setPathOne({
+        ...pathOne,
+        [propertyName]: !currentValue,
+      });
+      incrementPoints();
+    }
   }
 
   function togglePathTwo(propertyName: string): void {
     const currentValue = pathTwo[propertyName];
-    setPathTwo({
-      ...pathTwo,
-      [propertyName]: !currentValue,
-    });
+    if (points > 0 && !currentValue) {
+      setPathTwo({
+        ...pathTwo,
+        [propertyName]: !currentValue,
+      });
+
+      decrementPoints();
+    } else if (points < 6 && currentValue) {
+      setPathTwo({
+        ...pathTwo,
+        [propertyName]: !currentValue,
+      });
+      incrementPoints();
+    }
+  }
+
+  function incrementPoints() {
+    setPoints(points + 1);
+  }
+
+  function decrementPoints() {
+    setPoints(points - 1);
   }
 
   return (
@@ -91,6 +121,7 @@ function App() {
           ></div>
         </div>
       </div>
+      <div className="points-container">Points Remaining: {points}</div>
     </div>
   );
 }
