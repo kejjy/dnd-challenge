@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { Path } from './models/path';
 import PathTrack from './path-track';
-import { getNextStep, getPrevStep } from './utilities/step-helpers';
 
 const MAX_POINTS = 6;
 

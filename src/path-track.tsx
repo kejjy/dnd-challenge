@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { getDefaultState, Path } from './models/path';
-import { canToggleOff, canToggleOn, getSpriteClassPathOne, getSpriteClassPathTwo } from './utilities/step-helpers';
+import {
+  canToggleOff,
+  canToggleOn,
+  getSpriteClassPathOne,
+  getSpriteClassPathTwo,
+  STEPS,
+} from './utilities/step-helpers';
 import { getDividerOnOffClass, getStepOnOffClass } from './utilities/style-helpers';
 
 export interface PathTrackProps {
@@ -46,32 +52,30 @@ function PathTrack(props: PathTrackProps) {
     return isPathOne ? getSpriteClassPathOne(stepName) : getSpriteClassPathTwo(stepName);
   }
 
+  function getStepTile(stepName: string): JSX.Element {
+    return (
+      <div
+        className={`sprite-icon ${getSpriteClassName(stepName)} ${getStepOnOffClass(path, stepName)}`}
+        onClick={(e) => togglePath(e, stepName, true)}
+        onContextMenu={(e) => togglePath(e, stepName, false)}
+      ></div>
+    );
+  }
+
+  function getDivider(stepName: string): JSX.Element {
+    return <div className={`divider ${getDividerOnOffClass(path, stepName)}`}></div>;
+  }
+
   return (
     <div className={`path-${props.pathName}`}>
       <div className="path-name">TALENT PATH {props.pathName}</div>
-      <div
-        className={`sprite-icon ${getSpriteClassName('stepOne')} ${getStepOnOffClass(path, 'stepOne')}`}
-        onClick={(e) => togglePath(e, 'stepOne', true)}
-        onContextMenu={(e) => togglePath(e, 'stepOne', false)}
-      ></div>
-      <div className={`divider ${getDividerOnOffClass(path, 'stepOne')}`}></div>
-      <div
-        className={`sprite-icon ${getSpriteClassName('stepTwo')} ${getStepOnOffClass(path, 'stepTwo')}`}
-        onClick={(e) => togglePath(e, 'stepTwo', true)}
-        onContextMenu={(e) => togglePath(e, 'stepTwo', false)}
-      ></div>
-      <div className={`divider ${getDividerOnOffClass(path, 'stepTwo')}`}></div>
-      <div
-        className={`sprite-icon ${getSpriteClassName('stepThree')} ${getStepOnOffClass(path, 'stepThree')}`}
-        onClick={(e) => togglePath(e, 'stepThree', true)}
-        onContextMenu={(e) => togglePath(e, 'stepThree', false)}
-      ></div>
-      <div className={`divider ${getDividerOnOffClass(path, 'stepThree')}`}></div>
-      <div
-        className={`sprite-icon ${getSpriteClassName('stepFour')} ${getStepOnOffClass(path, 'stepFour')}`}
-        onClick={(e) => togglePath(e, 'stepFour', true)}
-        onContextMenu={(e) => togglePath(e, 'stepFour', false)}
-      ></div>
+      {getStepTile(STEPS.ONE)}
+      {getDivider(STEPS.ONE)}
+      {getStepTile(STEPS.TWO)}
+      {getDivider(STEPS.TWO)}
+      {getStepTile(STEPS.THREE)}
+      {getDivider(STEPS.THREE)}
+      {getStepTile(STEPS.FOUR)}
     </div>
   );
 }
