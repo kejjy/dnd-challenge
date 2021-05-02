@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 $sprite-image-path: './assets/';
 $sprite-image-file: 'talent-icons-sprite.png' !default;
 $sprite-image-icon-height: 50px;
@@ -7,6 +9,12 @@ $sprite-image-icon-width: 50px;
   background-image: url('#{$sprite-image-path}#{$sprite-image-file}');
   width: $sprite-image-icon-width;
   height: $sprite-image-icon-height;
+  border: 1px solid $black;
+
+  &:hover {
+    border: 1px solid $primary;
+    cursor: pointer;
+  }
 
   &.sprite-icon-boxes {
     background-position: 0px 0px;

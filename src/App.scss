@@ -1,7 +1,8 @@
 @import './sprites.scss';
+@import './variables.scss';
 
 .App {
-  color: #fff;
+  color: $white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,18 +12,36 @@
     font-size: 24px;
     width: 100%;
     text-align: center;
+    margin-bottom: 25px;
+
     span {
-      background-color: #454545;
+      background-color: $dark-gray;
       padding: 10px;
     }
   }
 
   .path-container {
-    display: flex;
-    flex-flow: row wrap;
-  }
+    align-content: center;
+    .path-one,
+    .path-two {
+      display: flex;
+      flex-direction: row wrap;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-  .sprite-icon {
-    margin: 10px;
+    .path-name {
+      width: 150px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px;
+    }
+
+    .divider {
+      width: 100px;
+      height: 15px;
+      background-color: $dark-gray;
+    }
   }
 }
