@@ -26,71 +26,53 @@ function App() {
     return 'off';
   }
 
-  function togglePathOne(propertyName: string): void {
-    const togglingOff = pathOne[propertyName];
+  function togglePathOne(stepName: string): void {
+    const togglingOff = pathOne[stepName];
     const togglingOn = !togglingOff;
 
-    if ((points === 0 && togglingOn) || (points === 6 && togglingOff)) {
+    if (isPointLimitHit(togglingOn, togglingOff)) {
       return;
     }
 
-    if (points >= 0 && togglingOff) {
-      const nextStepName = getNextStep(propertyName);
-      const nextStepIsOn = nextStepName !== '' ? pathOne[nextStepName] : false;
-
-      if (!nextStepIsOn) {
+    if (togglingOff && canToggleOff(pathTwo, stepName)) {
+      if (canToggleOff(pathOne, stepName)) {
         setPathOne({
           ...pathOne,
-          [propertyName]: false,
+          [stepName]: false,
         });
 
         incrementPoints();
       }
-    } else if (points <= 6 && togglingOn) {
-      const prevStepName = getPrevStep(propertyName);
-      const prevStepIsOn = prevStepName !== '' ? pathOne[prevStepName] : true;
-
-      if (prevStepIsOn) {
-        setPathOne({
-          ...pathOne,
-          [propertyName]: true,
-        });
-        decrementPoints();
-      }
+    } else if (togglingOn && canToggleOn(pathOne, stepName)) {
+      setPathOne({
+        ...pathOne,
+        [stepName]: true,
+      });
+      decrementPoints();
     }
   }
 
-  function togglePathTwo(propertyName: string): void {
-    const togglingOff = pathTwo[propertyName];
+  function togglePathTwo(stepName: string): void {
+    const togglingOff = pathTwo[stepName];
     const togglingOn = !togglingOff;
 
-    if ((points === 0 && togglingOn) || (points === 6 && togglingOff)) {
+    if (isPointLimitHit(togglingOn, togglingOff)) {
       return;
     }
 
-    if (points >= 0 && togglingOff) {
-      const nextStepName = getNextStep(propertyName);
-      const nextStepIsOn = nextStepName !== '' ? pathTwo[nextStepName] : false;
+    if (togglingOff && canToggleOff(pathTwo, stepName)) {
+      setPathTwo({
+        ...pathTwo,
+        [stepName]: false,
+      });
 
-      if (!nextStepIsOn) {
-        setPathTwo({
-          ...pathTwo,
-          [propertyName]: false,
-        });
-
-        incrementPoints();
-      }
-    } else if (points <= 6 && togglingOn) {
-      const prevStepName = getPrevStep(propertyName);
-      const prevStepIsOn = prevStepName !== '' ? pathTwo[prevStepName] : true;
-
-      if (prevStepIsOn) {
-        setPathTwo({
-          ...pathTwo,
-          [propertyName]: true,
-        });
-        decrementPoints();
-      }
+      incrementPoints();
+    } else if (togglingOn && canToggleOn(pathTwo, stepName)) {
+      setPathTwo({
+        ...pathTwo,
+        [stepName]: true,
+      });
+      decrementPoints();
     }
   }
 
@@ -100,6 +82,20 @@ function App() {
 
   function decrementPoints() {
     setPoints(points - 1);
+  }
+
+  function isPointLimitHit(togglingOn: boolean, togglingOff: boolean) {
+    return (points === 0 && togglingOn) || (points === 6 && togglingOff);
+  }
+
+  function canToggleOn(path: Path, stepName: string): boolean {
+    const prevStepName = getPrevStep(stepName);
+    return points <= 6 && (prevStepName !== '' ? path[prevStepName] : true);
+  }
+
+  function canToggleOff(path: Path, stepName: string): boolean {
+    const nextStepName = getNextStep(stepName);
+    return points >= 0 && !(nextStepName !== '' ? path[nextStepName] : false);
   }
 
   return (
