@@ -1,0 +1,28 @@
+@import './sprites.scss';
+
+.App {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .header {
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+    span {
+      background-color: #454545;
+      padding: 10px;
+    }
+  }
+
+  .path-container {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .sprite-icon {
+    margin: 10px;
+  }
+}

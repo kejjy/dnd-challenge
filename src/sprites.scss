@@ -1,0 +1,66 @@
+$sprite-image-path: './assets/';
+$sprite-image-file: 'talent-icons-sprite.png' !default;
+$sprite-image-icon-height: 50px;
+$sprite-image-icon-width: 50px;
+
+.sprite-icon {
+  background-image: url('#{$sprite-image-path}#{$sprite-image-file}');
+  width: $sprite-image-icon-width;
+  height: $sprite-image-icon-height;
+
+  &.sprite-icon-boxes {
+    background-position: 0px 0px;
+    &.off {
+      background-position: 0px 50px;
+    }
+  }
+
+  &.sprite-icon-skull {
+    background-position: 50px 0px;
+    &.off {
+      background-position: 50px 50px;
+    }
+  }
+
+  &.sprite-icon-lightning {
+    background-position: 100px 0px;
+    &.off {
+      background-position: 100px 50px;
+    }
+  }
+
+  &.sprite-icon-snorkel {
+    background-position: 150px 0px;
+    .off {
+      background-position: 150px 50px;
+    }
+  }
+
+  &.sprite-icon-boat {
+    background-position: 200px 0px;
+    &.off {
+      background-position: 200px 50px;
+    }
+  }
+
+  &.sprite-icon-crown {
+    background-position: 250px 0px;
+    &.off {
+      background-position: 250px 50px;
+    }
+  }
+
+  &.sprite-icon-cake {
+    background-position: 300px 0px;
+    &.off {
+      background-position: 300px 50px;
+    }
+  }
+
+  &.sprite-icon-silverware {
+    background-position: 350px 0px;
+    &.off {
+      background-position: 350px 50px;
+    }
+  }
+}
