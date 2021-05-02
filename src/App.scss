@@ -50,4 +50,16 @@
       }
     }
   }
+
+  .points-container {
+    text-align: center;
+    border: 1px solid $gray-dark;
+    color: $primary-dark;
+    padding: 10px 20px;
+
+    .points {
+      font-size: 20px;
+      color: $white;
+    }
+  }
 }

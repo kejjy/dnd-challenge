@@ -2,38 +2,23 @@ import React, { useState } from 'react';
 import './App.scss';
 import { Path } from './models/path';
 import { getNextStep, getPrevStep } from './utilities/step-helpers';
+import { getDividerOnOffClass, getStepOnOffClass } from './utilities/style-helpers';
 
 const MAX_POINTS = 6;
 
+function getDefaultState(): Path {
+  return {
+    stepOne: false,
+    stepTwo: false,
+    stepThree: false,
+    stepFour: false,
+  };
+}
+
 function App() {
-  const [pathOne, setPathOne] = useState<Path>({
-    stepOne: false,
-    stepTwo: false,
-    stepThree: false,
-    stepFour: false,
-  });
-  const [pathTwo, setPathTwo] = useState<Path>({
-    stepOne: false,
-    stepTwo: false,
-    stepThree: false,
-    stepFour: false,
-  });
-
+  const [pathOne, setPathOne] = useState<Path>(getDefaultState());
+  const [pathTwo, setPathTwo] = useState<Path>(getDefaultState());
   const [points, setPoints] = useState<number>(MAX_POINTS);
-
-  function getStepOnOffClass(path: Path, propertyName: string): string {
-    if (path[propertyName]) {
-      return 'on';
-    }
-    return 'off';
-  }
-
-  function getDividerOnOffClass(path: Path, propertyName: string): string {
-    if (path[propertyName] && path[getNextStep(propertyName)]) {
-      return 'on';
-    }
-    return 'off';
-  }
 
   function togglePathOne(e: any, stepName: string, toggleOn: boolean): void {
     e.preventDefault();
@@ -167,7 +152,7 @@ function App() {
         </div>
       </div>
       <div className="points-container">
-        <div>
+        <div className="points">
           {points} / {MAX_POINTS}
         </div>
         <div>Points Remaining</div>
