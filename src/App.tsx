@@ -3,6 +3,8 @@ import './App.scss';
 import { Path } from './models/path';
 import { getNextStep, getPrevStep } from './utilities/step-helpers';
 
+const MAX_POINTS = 6;
+
 function App() {
   const [pathOne, setPathOne] = useState<Path>({
     stepOne: false,
@@ -17,10 +19,17 @@ function App() {
     stepFour: false,
   });
 
-  const [points, setPoints] = useState<number>(6);
+  const [points, setPoints] = useState<number>(MAX_POINTS);
 
   function getStepOnOffClass(path: Path, propertyName: string): string {
-    if (!!path[propertyName]) {
+    if (path[propertyName]) {
+      return 'on';
+    }
+    return 'off';
+  }
+
+  function getDividerOnOffClass(path: Path, propertyName: string): string {
+    if (path[propertyName] && path[getNextStep(propertyName)]) {
       return 'on';
     }
     return 'off';
@@ -110,17 +119,17 @@ function App() {
             className={`sprite-icon sprite-icon-boxes ${getStepOnOffClass(pathOne, 'stepOne')}`}
             onClick={() => togglePathOne('stepOne')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathOne, 'stepOne')}`}></div>
           <div
             className={`sprite-icon sprite-icon-silverware ${getStepOnOffClass(pathOne, 'stepTwo')}`}
             onClick={() => togglePathOne('stepTwo')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathOne, 'stepTwo')}`}></div>
           <div
             className={`sprite-icon sprite-icon-cake ${getStepOnOffClass(pathOne, 'stepThree')}`}
             onClick={() => togglePathOne('stepThree')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathOne, 'stepThree')}`}></div>
           <div
             className={`sprite-icon sprite-icon-crown ${getStepOnOffClass(pathOne, 'stepFour')}`}
             onClick={() => togglePathOne('stepFour')}
@@ -132,24 +141,29 @@ function App() {
             className={`sprite-icon sprite-icon-boat ${getStepOnOffClass(pathTwo, 'stepOne')}`}
             onClick={() => togglePathTwo('stepOne')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathTwo, 'stepOne')}`}></div>
           <div
             className={`sprite-icon sprite-icon-snorkel ${getStepOnOffClass(pathTwo, 'stepTwo')}`}
             onClick={() => togglePathTwo('stepTwo')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathTwo, 'stepTwo')}`}></div>
           <div
             className={`sprite-icon sprite-icon-lightning ${getStepOnOffClass(pathTwo, 'stepThree')}`}
             onClick={() => togglePathTwo('stepThree')}
           ></div>
-          <div className="divider"></div>
+          <div className={`divider ${getDividerOnOffClass(pathTwo, 'stepThree')}`}></div>
           <div
             className={`sprite-icon sprite-icon-skull ${getStepOnOffClass(pathTwo, 'stepFour')}`}
             onClick={() => togglePathTwo('stepFour')}
           ></div>
         </div>
       </div>
-      <div className="points-container">Points Remaining: {points}</div>
+      <div className="points-container">
+        <div>
+          {points} / {MAX_POINTS}
+        </div>
+        <div>Points Remaining</div>
+      </div>
     </div>
   );
 }

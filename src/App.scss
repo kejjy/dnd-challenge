@@ -13,9 +13,10 @@
     width: 100%;
     text-align: center;
     margin-bottom: 25px;
+    margin-top: 25px;
 
     span {
-      background-color: $dark-gray;
+      background-color: $gray-dark;
       padding: 10px;
     }
   }
@@ -41,7 +42,12 @@
     .divider {
       width: 100px;
       height: 15px;
-      background-color: $dark-gray;
+      z-index: 0;
+      background-color: $gray-dark;
+
+      &.on {
+        background-color: $primary-dark;
+      }
     }
   }
 }

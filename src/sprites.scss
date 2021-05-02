@@ -9,10 +9,14 @@ $sprite-image-icon-width: 50px;
   background-image: url('#{$sprite-image-path}#{$sprite-image-file}');
   width: $sprite-image-icon-width;
   height: $sprite-image-icon-height;
+  z-index: 20;
+
   border: 2px solid $primary;
+  box-shadow: 0px 0px 5px 1px $primary;
 
   &.off {
     border: 2px solid $black;
+    box-shadow: none;
   }
 
   &:hover {
