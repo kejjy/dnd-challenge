@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { getDefaultState, Path } from './models/path';
+import { canToggleOff, canToggleOn, STEPS } from './utilities/step-helpers';
 import {
-  canToggleOff,
-  canToggleOn,
+  getDividerOnOffClass,
+  getStepOnOffClass,
   getSpriteClassPathOne,
   getSpriteClassPathTwo,
-  STEPS,
-} from './utilities/step-helpers';
-import { getDividerOnOffClass, getStepOnOffClass } from './utilities/style-helpers';
+} from './utilities/style-helpers';
 
 export interface PathTrackProps {
   pathName: string;
@@ -20,7 +19,7 @@ export interface PathTrackProps {
 function PathTrack(props: PathTrackProps) {
   const [path, setPath] = useState<Path>(getDefaultState(props.pathName));
 
-  function togglePath(e: any, stepName: string, toggleOn: boolean): void {
+  function togglePath(e: React.MouseEvent<HTMLDivElement, MouseEvent>, stepName: string, toggleOn: boolean): void {
     e.preventDefault();
 
     if (isPointLimitHit(toggleOn)) {
