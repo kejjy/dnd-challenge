@@ -9,11 +9,15 @@ $sprite-image-icon-width: 50px;
   background-image: url('#{$sprite-image-path}#{$sprite-image-file}');
   width: $sprite-image-icon-width;
   height: $sprite-image-icon-height;
-  border: 1px solid $black;
+  border: 2px solid $primary;
 
   &:hover {
-    border: 1px solid $primary;
+    border: 2px solid $white;
     cursor: pointer;
+  }
+
+  &.off {
+    border: 2px solid $black;
   }
 
   &.sprite-icon-boxes {
@@ -39,7 +43,7 @@ $sprite-image-icon-width: 50px;
 
   &.sprite-icon-snorkel {
     background-position: 150px 0px;
-    .off {
+    &.off {
       background-position: 150px 50px;
     }
   }
