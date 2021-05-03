@@ -24,7 +24,7 @@ function App() {
         <PathTrack pathName="one" points={points} incrementPoints={incrementPoints} decrementPoints={decrementPoints} />
         <PathTrack pathName="two" points={points} incrementPoints={incrementPoints} decrementPoints={decrementPoints} />
       </div>
-      <div className="points-container">
+      <div className={`points-container ${points === 0 ? 'out-of-points' : ''}`}>
         <div className="points">
           {points} / {MAX_POINTS}
         </div>

@@ -1,5 +1,6 @@
 # If I Had More Time...
 
-- Mobile responsiveness, styling (things are too close to the left and right edge)
+- Better mobile responsiveness
 - Use ContextAPI with Points for 0 prop drilling
+- Shake the points box on click when there's 0 points and you try to use more
 - Unit tests
