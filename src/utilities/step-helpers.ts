@@ -1,4 +1,4 @@
-import { Path } from '../models/path';
+import { getStep, Path } from '../models/path';
 
 export const STEPS = {
   ONE: 'stepOne',
@@ -39,10 +39,10 @@ export function getNextStep(stepName: string): string {
 
 export function canToggleOn(path: Path, stepName: string, points: number): boolean {
   const prevStepName = getPrevStep(stepName);
-  return points <= 6 && !path[stepName] && (prevStepName !== '' ? path[prevStepName] : true);
+  return points <= 6 && !getStep(path, stepName) && (prevStepName !== '' ? getStep(path, prevStepName) : true);
 }
 
 export function canToggleOff(path: Path, stepName: string, points: number): boolean {
   const nextStepName = getNextStep(stepName);
-  return points >= 0 && path[stepName] && !(nextStepName !== '' ? path[nextStepName] : false);
+  return points >= 0 && getStep(path, stepName) && !(nextStepName !== '' ? getStep(path, nextStepName) : false);
 }

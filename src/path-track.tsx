@@ -31,7 +31,6 @@ function PathTrack(props: PathTrackProps) {
         ...path,
         [stepName]: false,
       });
-
       props.incrementPoints();
     } else if (toggleOn && canToggleOn(path, stepName, props.points)) {
       setPath({
@@ -70,10 +69,14 @@ function PathTrack(props: PathTrackProps) {
       <div className="path-name">TALENT PATH {props.pathName}</div>
       {getStepTile(STEPS.ONE)}
       {getDivider(STEPS.ONE)}
+
       {getStepTile(STEPS.TWO)}
       {getDivider(STEPS.TWO)}
+
       {getStepTile(STEPS.THREE)}
       {getDivider(STEPS.THREE)}
+
+      {/* No divider for step four */}
       {getStepTile(STEPS.FOUR)}
     </div>
   );

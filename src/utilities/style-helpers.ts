@@ -1,18 +1,18 @@
-import { Path } from '../models/path';
+import { getStep, Path } from '../models/path';
 import { getNextStep, STEPS } from './step-helpers';
 
 const ON = 'on';
 const OFF = 'off';
 
 export function getStepOnOffClass(path: Path, propertyName: string): string {
-  if (path[propertyName]) {
+  if (getStep(path, propertyName)) {
     return ON;
   }
   return OFF;
 }
 
 export function getDividerOnOffClass(path: Path, propertyName: string): string {
-  if (path[propertyName] && path[getNextStep(propertyName)]) {
+  if (getStep(path, propertyName) && getStep(path, getNextStep(propertyName))) {
     return ON;
   }
   return OFF;

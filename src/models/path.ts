@@ -15,3 +15,7 @@ export function getDefaultState(name: string): Path {
     stepFour: false,
   };
 }
+
+export function getStep(path: Path, propertyName: string): boolean {
+  return (path as any)[propertyName];
+}
